@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://thelia.net/schema/dic/module"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://thelia.net/schema/dic/module http://thelia.net/schema/dic/module/module-2_1.xsd">
+    <fullnamespace>OpenGraph\OpenGraph</fullnamespace>
+    <descriptive locale="en_US">
+        <title>Social media sharing module</title>
+    </descriptive>
+    <descriptive locale="fr_FR">
+        <title>Module de partage sur les réseaux sociaux</title>
+    </descriptive>
+    <!-- <logo></logo> -->
+    <languages>
+        <language>en_US</language>
+        <language>fr_FR</language>
+    </languages>
+    <version>0.1</version>
+    <author>
+        <name>Thomas Arnaud</name>
+        <email>tarnaud@openstudio.fr</email>
+    </author>
+    <type>classic</type>
+    <thelia>2.1.0</thelia>
+    <stability>other</stability>
+</module>
