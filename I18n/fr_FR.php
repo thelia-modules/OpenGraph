@@ -1,4 +1,6 @@
 <?php
+
 return array(
-    // 'an english string' => 'La traduction française de la chaine',
+    'Your company name' => 'Le nom de votre entreprise',
+    'Your company name on twitter' => 'Le pseudo de votre entreprise sur twitter',
 );

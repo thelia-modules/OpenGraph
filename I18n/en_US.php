@@ -1,4 +1,6 @@
 <?php
+
 return array(
-    // 'an english string' => 'The displayed english string',
+    'Your company name' => 'Your company name',
+    'Your company name on twitter' => 'Your company name on twitter',
 );

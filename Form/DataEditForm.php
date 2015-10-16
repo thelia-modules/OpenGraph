@@ -2,6 +2,8 @@
 
 namespace OpenGraph\Form;
 
+use OpenGraph\OpenGraph;
+use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
 class DataEditForm extends BaseForm
@@ -21,7 +23,7 @@ class DataEditForm extends BaseForm
                 'text',
                 [
                     'required' => false,
-                    'label' => 'Your company name',
+                    'label' => $this->translator->trans('Your company name'),
                     'label_attr' => [	'for' => 'company_name_field']
                 ]
             )
@@ -30,7 +32,7 @@ class DataEditForm extends BaseForm
                 'text',
                 [
                     'required' => false,
-                    'label' => 'Your company name on twitter',
+                    'label' => $this->translator->trans('Your company name on twitter'),
                     'label_attr' => [	'for' => 'twitter_company_name_field']
                 ]
             );

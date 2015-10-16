@@ -1,7 +1,7 @@
 <div class="general-block-decorator">
     <div class="row">
         <div class="col-md-12 title title-without-tabs">
-            {intl l='Edit your social media datas.' d=''}
+            {intl l='Edit your social media datas.' d='opengraph.bo.default'}
         </div>
     </div>
 
@@ -22,6 +22,7 @@
                             {render_form_field field="id" value=$ID}
                             {render_form_field field="company_name" value=$COMPANY_NAME}
                             {render_form_field field="twitter_company_name" value=$TWITTER_COMPANY_NAME}
+                            <p>({intl l='example' d='opengraph.bo.default'} : @thelia)</p>
                         </div>
                     </div>
                 </div>

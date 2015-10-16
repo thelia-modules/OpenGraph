@@ -16,5 +16,7 @@ CREATE TABLE `opengraph_data`
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
+INSERT INTO opengraph_data VALUES (1,'','');
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
