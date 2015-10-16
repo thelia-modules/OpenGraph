@@ -12,9 +12,20 @@
 
 namespace OpenGraph;
 
+use Propel\Runtime\Connection\ConnectionInterface;
+use Thelia\Install\Database;
 use Thelia\Module\BaseModule;
 
 class OpenGraph extends BaseModule
 {
+    const DOMAIN_NAME = 'OpenGraph';
 
+    public function postActivation(ConnectionInterface $con = null)
+    {
+
+        $database = new Database($con);
+
+        $database->insertSql(null, array(__DIR__ . '/Config/thelia.sql'));
+
+    }
 }

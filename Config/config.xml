@@ -6,8 +6,22 @@
 
     <hooks>
         <hook id="opengraph.hook" class="OpenGraph\Hook\OpenGraphHook" scope="request">
+            <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConf" />
             <tag name="hook.event_listener" event="main.head-bottom" type="front" method="onMainHeadBottom" />
         </hook>
     </hooks>
 
+    <services>
+        <service id="action.data.edit" class="OpenGraph\EventListeners\OpenGraphEventListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+
+    <forms>
+        <form name="open.graph.data.edit" class="OpenGraph\Form\DataEditForm" />
+    </forms>
+
+    <loops>
+        <loop name="data" class="OpenGraph\Loop\DataLoop" />
+    </loops>
 </config>

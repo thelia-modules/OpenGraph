@@ -1,0 +1,123 @@
+{$view_value={$smarty.get.view}}
+{$object_id=''}
+{$filler_meta=False}
+{$og_type=''}
+{$twitter_type=''}
+
+{if $view_value == 'content'}
+    {$object_id={content attr="id"}}
+    {$filler_meta=True}
+    {$og_type='article'}
+    {$twitter_type='summary'}
+{/if}
+{if $view_value == 'folder'}
+    {$object_id={folder attr="id"}}
+    {$filler_meta=True}
+    {$og_type='article'}
+    {$twitter_type='summary'}
+{/if}
+{if $view_value == 'category'}
+    {$object_id={category attr="id"}}
+    {$filler_meta=True}
+    {$og_type='article'}
+    {$twitter_type='summary'}
+{/if}
+{if $view_value == 'product'}
+    {$object_id={product attr="id"}}
+    {$filler_meta=True}
+    {$og_type='product'}
+    {$twitter_type='product'}
+{/if}
+
+{if $filler_meta == True}
+    {$title=''}
+    {$description=''}
+    {$image_src=''}
+    {$price=''}
+    {$url=''}
+
+<!-- {$view_value} meta tags -->
+    {loop name="{$view_value}" type="{$view_value}" id=$object_id limit="1"}
+        {$title = $TITLE}
+
+        {$description = $DESCRIPTION}
+
+        {if $view_value == 'content'}
+            {ifloop rel="image"}
+                {loop type="image" name="image" content="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+                    {$image_src = $IMAGE_URL}
+                {/loop}
+            {/ifloop}
+            {$url={url path="" view={$view_value} lang={lang attr="locale"} content_id=$object_id}}
+        {/if}
+
+        {if $view_value == 'product'}
+            {ifloop rel="image"}
+                {loop type="image" name="image" product="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+                    {$image_src = $IMAGE_URL}
+                {/loop}
+            {/ifloop}
+            {$url={url path="" view={$view_value} lang={lang attr="locale"} product_id=$object_id}}
+            {$price = $PRICE}
+        {/if}
+
+        {if $view_value == 'folder'}
+            {ifloop rel="image"}
+                {loop type="image" name="image" folder="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+                    {$image_src = $IMAGE_URL}
+                {/loop}
+            {/ifloop}
+            {$url={url path="" view={$view_value} lang={lang attr="locale"} folder_id=$object_id}}
+        {/if}
+
+        {if $view_value == 'category'}
+            {ifloop rel="image"}
+                {loop type="image" name="image" category="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+                    {$image_src = $IMAGE_URL}
+                {/loop}
+            {/ifloop}
+            {$url={url path="" view={$view_value} lang={lang attr="locale"} category_id=$object_id}}
+        {/if}
+    {/loop}
+
+    <!-- Facebook, Pinterest and Google+ tags -->
+    <meta property="og:type" content="{$og_type}" />
+    {ifloop rel="data"}
+        {loop name="data" type="data"}
+    <meta property="og:site_name" content="{$COMPANY_NAME}"/>
+        {/loop}
+    {/ifloop}
+    <meta property="og:url" content="{$url nofilter}" />
+    <meta property="og:title" content="{$title nofilter}" />
+    {ifloop rel="image"}
+    <meta property="og:image" content="{$image_src}" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    {/ifloop}
+    <meta property="og:description" content="{$description nofilter}" />
+
+    <!-- Twitter tags -->
+    <meta name="twitter:card" content="{$twitter_type}" />
+    {ifloop rel="data"}
+        {loop name="data" type="data"}
+    <meta name="twitter:site" content="{$TWITTER_COMPANY_NAME}" />
+    <meta name=”twitter:creator” content="{$TWITTER_COMPANY_NAME}" />
+        {/loop}
+    {/ifloop}
+    <meta name="twitter:title" content="{$title}" />
+    {ifloop rel="image"}
+    <meta name="twitter:image" content="{$image_src}" />
+    {/ifloop}
+    <meta name="twitter:description" content="{$description}" />
+    {if $price}
+    <meta name="twitter:label1" content="Ce produit" />
+    <meta name="twitter:data1" content="{$description}" />
+    <meta name="twitter:label2" content="Coût" />
+    <meta name="twitter:data2" content="{$price}" />
+
+    <!-- Pinterest price tags -->
+    <meta property="og:price:amount" content="{$price}" />
+    <meta property="og:price:currency" content="{currency attr="code"}" />
+    {/if}
+{/if}

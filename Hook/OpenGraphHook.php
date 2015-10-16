@@ -15,6 +15,11 @@ class OpenGraphHook extends BaseHook
 {
     public function onMainHeadBottom(HookRenderEvent $event)
     {
-        $event->add($this->render('openGraph.html'));
+        $event->add($this->render('open-graph.html'));
+    }
+
+    public function onModuleConf(HookRenderEvent $event)
+    {
+        $event->add($this->render("module-configuration.html"));
     }
 }

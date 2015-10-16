@@ -1,0 +1,57 @@
+<div class="general-block-decorator">
+    <div class="row">
+        <div class="col-md-12 title title-without-tabs">
+            {intl l='Edit your social media datas.' d=''}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-container">
+                {ifloop rel="data"}
+                {form name="open.graph.data.edit"}
+                <form method="post" action="{url path="/admin/module/OpenGraph/data/edit"}" {form_enctype} class="clearfix">
+
+                {form_hidden_fields}
+
+                <!-- Data list -->
+                {loop name="data" type="data" id="{$ID}"}
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {render_form_field field="id" value=$ID}
+                            {render_form_field field="company_name" value=$COMPANY_NAME}
+                            {render_form_field field="twitter_company_name" value=$TWITTER_COMPANY_NAME}
+                        </div>
+                    </div>
+                </div>
+                {/loop}
+
+                <!-- Save button -->
+                <div class="row inner-toolbar{if $page_bottom} inner-toolbar-bottom{/if}">
+                    {if $hide_submit_buttons != true}
+                        {if $hide_save_buttons != true}
+                            <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-sm btn-default btn-success" title="{intl l='Save'}">{intl l='Save'} <span class="glyphicon glyphicon-ok"></span></button>
+                        {/if}
+                        {if $hide_save_and_close_button != true}
+                            <button type="submit" name="save_mode" value="close" class="form-submit-button btn btn-sm btn-default btn-info" title="{intl l='Save and close'}">{intl l='Save and close'} <span class="glyphicon glyphicon-remove"></span></button>
+                        {/if}
+                    {/if}
+                    {if ! empty($close_url)}
+                        <a href="{url path='/admin/modules'}" class="page-close-button btn btn-sm btn-default">{intl l='Close'} <span class="glyphicon glyphicon-remove"></span></a>
+                    {/if}
+                </div>
+
+                </form>
+                {/form}
+                {/ifloop}
+
+                {elseloop rel="data"}
+                <div class="alert alert-info">
+                    {intl d='imagemarker.bo.default' l="No data. Contact the Thelia developpers."}
+                </div>
+                {/elseloop}
+            </div>
+        </div>
+    </div>
+</div>

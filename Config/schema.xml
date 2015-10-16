@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database defaultIdMethod="native" name="thelia"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:noNamespaceSchemaLocation="../../../../core/vendor/propel/propel/resources/xsd/database.xsd" >
+<database defaultIdMethod="native" name="thelia" >
+    <!--
+    See propel documentation on http://propelorm.org for all information about schema file
+     -->
 
-    <table name="opengraph_tags_content" namespace="Opengraph\Model">
-        <column name="product_id" primaryKey="true" required="true" type="INTEGER" />
-        <column name="title" type="VARCHAR" />
-        <column name="description" type="VARCHAR" size="200" />
-        <foreign-key foreignTable="product" onDelete="CASCADE">
-            <reference foreign="id" local="product_id" />
-        </foreign-key>
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="title, description" />
-        </behavior>
+    <table name="opengraph_data" namespace="OpenGraph\Model">
+        <column name="id" primaryKey="true" required="true" type="INTEGER" />
+        <column name="company_name" type="VARCHAR" />
+        <column name="twitter_company_name" type="VARCHAR" />
     </table>
 
     <external-schema filename="local/config/schema.xml" referenceOnly="true" />
