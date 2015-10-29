@@ -1,6 +1,7 @@
 <?php
 
 return array(
-    'Your company name' => 'Your company name',
-    'Your company name on twitter' => 'Your company name on twitter',
+    'The creator\'s name on twitter' => 'The creator\'s name on twitter',
+    'Your company\'s name' => 'Your company\'s name',
+    'Your company\'s name on twitter' => 'Your company\'s name on twitter',
 );

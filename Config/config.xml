@@ -11,17 +11,8 @@
         </hook>
     </hooks>
 
-    <services>
-        <service id="action.data.edit" class="OpenGraph\EventListeners\OpenGraphEventListener">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-    </services>
-
     <forms>
-        <form name="open.graph.data.edit" class="OpenGraph\Form\DataEditForm" />
+        <form name="open.graph.configuration.form" class="OpenGraph\Form\OpenGraphConfigurationForm" />
     </forms>
 
-    <loops>
-        <loop name="data" class="OpenGraph\Loop\DataLoop" />
-    </loops>
 </config>

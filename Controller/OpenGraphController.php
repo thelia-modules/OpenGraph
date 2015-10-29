@@ -1,62 +1,73 @@
 <?php
 
 namespace OpenGraph\Controller;
-use OpenGraph\Event\OpenGraphEvent;
-use OpenGraph\EventListeners\OpenGraphEventListener;
+
+use OpenGraph\Form\OpenGraphConfigurationForm;
+use OpenGraph\OpenGraph;
 use Thelia\Controller\Admin\BaseAdminController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Form\Exception\FormValidationException;
+use Thelia\Model\ConfigQuery;
 use Thelia\Tools\URL;
 
-
 /**
- * Created by PhpStorm.
- * User: openstudio
- * Date: 13/10/15
- * Time: 14:15
+ * Class OpenGraphController
+ * @package OpenGraph\Controller
+ * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
-
 class OpenGraphController extends BaseAdminController
 {
+    /**
+     * Redirect to the configuration page
+     *
+     */
     protected function redirectToConfigurationPage()
     {
         return RedirectResponse::create(URL::getInstance()->absoluteUrl('/admin/module/OpenGraph'));
     }
 
-    public function editData()
+    /**
+     * Fill the form with the configuration datas
+     */
+    public function saveAction()
     {
-        if (null !== $response = $this->checkAuth(AdminResources::MODULE, ['OpenGraph'], AccessManager::UPDATE)) {
+        if (null !== $response = $this->checkAuth(AdminResources::MODULE, [OpenGraph::DOMAIN_NAME], AccessManager::UPDATE)) {
             return $response;
         }
 
-        $form = $this->createForm('open.graph.data.edit');
+        // Create the form from the request
+        $form = new OpenGraphConfigurationForm($this->getRequest());
+
+        // Initialize the potential error
         $error_message = null;
 
         try {
+            // Check the form against constraints violations
             $validateForm = $this->validateForm($form);
 
-            $fileCreateOrUpdateEvent = new OpenGraphEvent();
+            // Get the form field values
+            $data = $validateForm->getData();
 
-            $fileCreateOrUpdateEvent->setId($validateForm->get('id')->getData());
-            $fileCreateOrUpdateEvent->setCompanyName($validateForm->get('company_name')->getData());
-            $fileCreateOrUpdateEvent->setTwitterCompanyName($validateForm->get('twitter_company_name')->getData());
+            foreach ($data as $name => $value) {
+                if (! $form->isTemplateDefinedHiddenFieldName($name)) {
+                    ConfigQuery::write("opengraph_" . $name, $value, false, true);
+                }
+            }
 
-            $this->dispatch(
-                OpenGraphEventListener::DATA_EDIT,
-                $fileCreateOrUpdateEvent
-            );
+            // Redirect to the configuration page if everything is OK
+            return $this->redirectToConfigurationPage();
 
-            $response =  $this->redirectToConfigurationPage();
-
-        } catch (FormValidationException $e) {
+        }catch (FormValidationException $e) {
+            // Form cannot be validated. Create the error message using
+            // the BaseAdminController helper method.
             $error_message = $this->createStandardFormValidationErrorMessage($e);
         }
 
         if (null !== $error_message) {
             $this->setupFormErrorContext(
-                'data edit',
+                'configuration',
                 $error_message,
                 $form
             );

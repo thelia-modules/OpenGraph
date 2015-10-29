@@ -9,11 +9,11 @@ This module for Thelia 2.2.0.
 
 ## Description
 
-Add meta tags in the code of the product's pages to configure what will be displayed when you share the url on social medias.
-Works with Facebook, Twitter, Google+ and Pinterest.
+Add meta tags in the code of some pages to configure what will be displayed when you share the url on social medias.
+Works with Facebook, Twitter, Google+ and Pinterest and concerns the folder, content, product and category pages only.
 
 
 ## Usage
 
-Share your products on the social networks and the different fields like title, description and price will be filled automatically.
-Pinterest needs a special validation on their developement website : https://developers.pinterest.com/tools/url-debugger/, you will receive a confirmation mail.
+Share different pages of your site on the social networks and the different fields like title, description and price will be filled automatically.
+Pinterest needs a special validation on its development website : https://developers.pinterest.com/tools/url-debugger/, follow the procedure, your page will be approved and you will receive a confirmation mail.
