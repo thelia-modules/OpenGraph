@@ -4,8 +4,8 @@ namespace OpenGraph\Controller;
 
 use OpenGraph\Form\OpenGraphConfigurationForm;
 use OpenGraph\OpenGraph;
-use Thelia\Controller\Admin\BaseAdminController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Form\Exception\FormValidationException;
@@ -29,7 +29,7 @@ class OpenGraphController extends BaseAdminController
     }
 
     /**
-     * Fill the form with the configuration datas
+     * Fill the form with the configuration data
      */
     public function saveAction()
     {
@@ -38,6 +38,7 @@ class OpenGraphController extends BaseAdminController
         }
 
         // Create the form from the request
+        // TODO use $this->createForm() instead
         $form = new OpenGraphConfigurationForm($this->getRequest());
 
         // Initialize the potential error
@@ -51,15 +52,14 @@ class OpenGraphController extends BaseAdminController
             $data = $validateForm->getData();
 
             foreach ($data as $name => $value) {
-                if (! $form->isTemplateDefinedHiddenFieldName($name)) {
+                if (!$form->isTemplateDefinedHiddenFieldName($name)) {
                     ConfigQuery::write("opengraph_" . $name, $value, false, true);
                 }
             }
 
             // Redirect to the configuration page if everything is OK
             return $this->redirectToConfigurationPage();
-
-        }catch (FormValidationException $e) {
+        } catch (FormValidationException $e) {
             // Form cannot be validated. Create the error message using
             // the BaseAdminController helper method.
             $error_message = $this->createStandardFormValidationErrorMessage($e);

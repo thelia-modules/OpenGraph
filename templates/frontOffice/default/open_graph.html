@@ -1,3 +1,7 @@
+{*
+TODO : some of the code above can be done in php in the hook. so you can skip the render
+  of this file if it's not needed
+*}
 {$view_value={$smarty.get.view}}
 {$object_id=''}
 {$meta_filler=False}
@@ -39,6 +43,7 @@
 
         {$url={$URL}}
 
+        {* TODO : instead of this you can use the source argument of the loop image *}
         {if $view_value == 'content'}
             {ifloop rel="image"}
                 {loop type="image" name="image" content="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
@@ -79,13 +84,16 @@
     <meta property="og:site_name" content="{config key='opengraph_company_name'}"/>
 {/if}
     <meta property="og:url" content="{$url nofilter}" />
+    {* TODO remove the nofilter *}
     <meta property="og:title" content="{$title nofilter}" />
     {ifloop rel="image"}
     <meta property="og:image" content="{$image_src}" />
+    {* TODO get the right type *}
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="300" />
     {/ifloop}
+    {* TODO description (see meta-seo.html file) is to long and nofilter is dangerous / it doesn't take meta description ? *}
     <meta property="og:description" content="{$description nofilter}" />
     {if $price}
     {* Price tags *}
@@ -105,5 +113,7 @@
     {ifloop rel="image"}
     <meta name="twitter:image" content="{$image_src}" />
     {/ifloop}
+    {* TODO description is to long and nofilter is dangerous / Twitter doesn't take the og:description or meta description ? *}{* TODO description is to long and nofilter is dangerous *}
+
     <meta name="twitter:description" content="{$description}" />
 {/if}

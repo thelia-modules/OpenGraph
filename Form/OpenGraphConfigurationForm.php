@@ -18,6 +18,7 @@ class OpenGraphConfigurationForm extends BaseForm {
     {
         $form = $this->formBuilder;
 
+        // TODO add constraints to test twitter username and add a description / help for the fields
         $definitions = array(
             array(
                 "id" => "company_name",

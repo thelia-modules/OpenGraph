@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="open.graph.data.edit" path="/admin/module/OpenGraph/save" methods="post">
+    <route id="open.graph.config.save" path="/admin/module/OpenGraph/save" methods="post">
         <default key="_controller">OpenGraph\Controller\OpenGraphController::saveAction</default>
     </route>
 
