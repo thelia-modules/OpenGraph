@@ -1,8 +1,17 @@
 <?php
+/*************************************************************************************/
+/*      This file is part of the Thelia package.                                     */
+/*                                                                                   */
+/*      Copyright (c) OpenStudio                                                     */
+/*      email : dev@thelia.net                                                       */
+/*      web : http://www.thelia.net                                                  */
+/*                                                                                   */
+/*      For the full copyright and license information, please view the LICENSE.txt  */
+/*      file that was distributed with this source code.                             */
+/*************************************************************************************/
 
 namespace OpenGraph\Controller;
 
-use OpenGraph\Form\OpenGraphConfigurationForm;
 use OpenGraph\OpenGraph;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Thelia\Controller\Admin\BaseAdminController;
@@ -38,8 +47,7 @@ class OpenGraphController extends BaseAdminController
         }
 
         // Create the form from the request
-        // TODO use $this->createForm() instead
-        $form = new OpenGraphConfigurationForm($this->getRequest());
+        $form = $this->createForm('open.graph.configuration.form');
 
         // Initialize the potential error
         $error_message = null;

@@ -1,80 +1,48 @@
 {*
-TODO : some of the code above can be done in php in the hook. so you can skip the render
-  of this file if it's not needed
+TODO : some of the code above can be done in php in the hook.
 *}
+
 {$view_value={$smarty.get.view}}
 {$object_id=''}
-{$meta_filler=False}
-{$og_type=''}
 
 {if $view_value == 'content'}
     {$object_id={content attr="id"}}
-    {$meta_filler=True}
-    {$og_type='article'}
 {/if}
 {if $view_value == 'folder'}
     {$object_id={folder attr="id"}}
-    {$meta_filler=True}
-    {$og_type='article'}
 {/if}
 {if $view_value == 'category'}
     {$object_id={category attr="id"}}
-    {$meta_filler=True}
-    {$og_type='article'}
 {/if}
 {if $view_value == 'product'}
     {$object_id={product attr="id"}}
-    {$meta_filler=True}
-    {$og_type='product'}
 {/if}
 
-{if $meta_filler == True}
-
+    {$og_type='article'}
     {$title=''}
     {$description=''}
     {$image_src=''}
     {$price=''}
     {$url=''}
+    {$image_type=''}
 
     {loop name="{$view_value}" type="{$view_value}" id=$object_id limit="1"}
         {$title = $TITLE}
 
-        {$description = $DESCRIPTION}
+        {$description = $META_DESCRIPTION}
 
-        {$url={$URL}}
+        {$url={$URL nofilter}}
 
-        {* TODO : instead of this you can use the source argument of the loop image *}
-        {if $view_value == 'content'}
-            {ifloop rel="image"}
-                {loop type="image" name="image" content="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
-                    {$image_src = $IMAGE_URL}
-                {/loop}
-            {/ifloop}
-        {/if}
+        {ifloop rel="image"}
+            {loop type="image" name="image" source="{$view_value}" source_id="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+                {$image_src = $IMAGE_URL}
+                {$image_type = $OBJECT_TYPE}
+            {/loop}
+        {/ifloop}
 
         {if $view_value == 'product'}
-            {ifloop rel="image"}
-                {loop type="image" name="image" product="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
-                    {$image_src = $IMAGE_URL}
-                {/loop}
-            {/ifloop}
             {$price = $PRICE}
-        {/if}
-
-        {if $view_value == 'folder'}
-            {ifloop rel="image"}
-                {loop type="image" name="image" folder="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
-                    {$image_src = $IMAGE_URL}
-                {/loop}
-            {/ifloop}
-        {/if}
-
-        {if $view_value == 'category'}
-            {ifloop rel="image"}
-                {loop type="image" name="image" category="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
-                    {$image_src = $IMAGE_URL}
-                {/loop}
-            {/ifloop}
+            {$og_type='product'}
         {/if}
     {/loop}
 
@@ -83,18 +51,14 @@ TODO : some of the code above can be done in php in the hook. so you can skip th
 {if {config key='opengraph_company_name'}}
     <meta property="og:site_name" content="{config key='opengraph_company_name'}"/>
 {/if}
-    <meta property="og:url" content="{$url nofilter}" />
-    {* TODO remove the nofilter *}
-    <meta property="og:title" content="{$title nofilter}" />
+    <meta property="og:url" content="{$url}" />
+    <meta property="og:title" content="{$title}" />
     {ifloop rel="image"}
     <meta property="og:image" content="{$image_src}" />
-    {* TODO get the right type *}
-    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="300" />
     {/ifloop}
-    {* TODO description (see meta-seo.html file) is to long and nofilter is dangerous / it doesn't take meta description ? *}
-    <meta property="og:description" content="{$description nofilter}" />
+    <meta property="og:description" content="{$description}" />
     {if $price}
     {* Price tags *}
     <meta property="og:price:amount" content="{$price}" />
@@ -113,7 +77,4 @@ TODO : some of the code above can be done in php in the hook. so you can skip th
     {ifloop rel="image"}
     <meta name="twitter:image" content="{$image_src}" />
     {/ifloop}
-    {* TODO description is to long and nofilter is dangerous / Twitter doesn't take the og:description or meta description ? *}{* TODO description is to long and nofilter is dangerous *}
-
     <meta name="twitter:description" content="{$description}" />
-{/if}

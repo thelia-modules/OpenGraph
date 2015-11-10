@@ -1,5 +1,4 @@
 <?php
-// TODO add license in every php files
 /*************************************************************************************/
 /*      This file is part of the Thelia package.                                     */
 /*                                                                                   */
