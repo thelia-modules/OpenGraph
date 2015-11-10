@@ -1,14 +1,21 @@
 # OpenGraph
 
-This module is for Thelia 2.2.1 or greater.
-TODO test on 2.1.7
+This module is for Thelia 2.2.1 or greater and 2.1.7 or greater.
 
 ## Installation
+
+### Manually
 
 * Copy the module into ```<thelia_root>/local/modules/``` directory and be sure that the name of the module is OpenGraph.
 * Activate it in your thelia administration panel
 
-TODO explain composer installation
+### Composer
+
+Add it in your main Thelia composer.json file
+
+```
+composer require thelia/open-graph-module:~2.1.7
+```
 
 ## Description
 
