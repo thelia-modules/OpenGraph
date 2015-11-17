@@ -21,18 +21,13 @@
                 </div>
                 {/form_field}
 
-                {form_field form=$form field='author_name'}
-                <div class="form-group {if $error}has-error{/if}">
-                    <label for="{$label_attr.for}" class="control-label">{$label} : </label>
-                    <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_author_name'}" title="{$label}">
-                </div>
-                {/form_field}
+                {$twitterLink="<a href='https://twitter.com/theliaecommerce' target='_blank'>@theliaecommerce</a>"}
 
                 {form_field form=$form field='twitter_company_name'}
                 <div class="form-group {if $error}has-error{/if}">
                     <label for="{$label_attr.for}" class="control-label">{$label} : </label>
                     <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_twitter_company_name'}" title="{$label}">
-                    <span class="help-block">{intl l='Must be a valid twitter alias ( ex : @openstudio )' d='opengraph.bo.default'}</span>
+                    <span class="help-block">{intl l='Must be a valid twitter username ( ex : %link )' link=$twitterLink d='opengraph.bo.default'}</span>
                 </div>
                 {/form_field}
 
@@ -40,7 +35,7 @@
                 <div class="form-group {if $error}has-error{/if}">
                     <label for="{$label_attr.for}" class="control-label">{$label} : </label>
                     <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{config key='opengraph_twitter_creator_name'}" title="{$label}">
-                    <span class="help-block">{intl l='Must be a valid twitter alias ( ex : @openstudio )' d='opengraph.bo.default'}</span>
+                    <span class="help-block">{intl l='Must be a valid twitter username ( ex : %link )' link=$twitterLink d='opengraph.bo.default'}</span>
                 </div>
                 {/form_field}
 

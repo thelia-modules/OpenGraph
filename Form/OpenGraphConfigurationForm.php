@@ -24,64 +24,62 @@ use Thelia\Model\ConfigQuery;
  * @package OpenGraph\Form
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
-class OpenGraphConfigurationForm extends BaseForm {
+class OpenGraphConfigurationForm extends BaseForm
+{
 
     protected function buildForm()
     {
         $form = $this->formBuilder;
 
-        $definitions = array(
-            array(
+        $definitions = [
+            [
                 "id" => "company_name",
-                "label" => $this->trans("Your company's name")
-            ),
-            array(
-                "id" => "author_name",
-                "label" => $this->trans("The article author's name")
-            ),
-        );
-
-        $twitter_definitions = array(
-            array(
+                "label" => $this->trans("Your company's name"),
+                "constraints" => []
+            ],
+            [
                 "id" => "twitter_company_name",
                 "label" => $this->trans("Your company's name on twitter"),
-            ),
-            array(
+                "constraints" => [
+                    new Callback(
+                        [
+                            "methods" => [
+                                [
+                                    $this,
+                                    "verifyValue"
+                                ]
+                            ]
+                        ]
+                    )
+                ],
+            ],
+            [
                 "id" => "twitter_creator_name",
                 "label" => $this->trans("The creator's name on twitter"),
-            )
-        );
+                "constraints" => [
+                    new Callback(
+                        [
+                            "methods" => [
+                                [
+                                    $this,
+                                    "verifyValue"
+                                ]
+                            ]
+                        ]
+                    )
+                ]
+            ]
+        ];
 
-        foreach ($twitter_definitions as $field){
+
+        foreach ($definitions as $field) {
             $value = ConfigQuery::read("opengraph_" . $field["id"], "");
             $form->add(
                 $field["id"],
                 "text",
                 array(
-                    "constraints" => [
-                        new Callback(array(
-                            "methods" => array(
-                                array($this,
-                                    "verifyValue")
-                            )
-                        ))
-                    ],
-                    "data"  => $value,
-                    "label" => $field["label"],
-                    "label_attr" => array(
-                        "for" => $field["id"]
-                    ),
-                )
-            );
-        }
-
-        foreach ($definitions as $field){
-            $value = ConfigQuery::read("opengraph_" . $field["id"], "");
-            $form->add(
-                $field["id"],
-                "text",
-                array(
-                    "data"  => $value,
+                    "constraints" => $field["constraints"],
+                    "data" => $value,
                     "label" => $field["label"],
                     "label_attr" => array(
                         "for" => $field["id"]
@@ -106,7 +104,7 @@ class OpenGraphConfigurationForm extends BaseForm {
 
     public function verifyValue($value, ExecutionContextInterface $context)
     {
-        if (!preg_match("#^@[a-zA-Z]*$#",$value)) {
+        if (!preg_match("#^@[a-zA-Z]*$#", $value)) {
             $context->addViolation($this->trans("enter a valid twitter alias"));
         }
     }

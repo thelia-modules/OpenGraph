@@ -60,7 +60,7 @@ class OpenGraphController extends BaseAdminController
             $data = $validateForm->getData();
 
             foreach ($data as $name => $value) {
-                    ConfigQuery::write("opengraph_" . $name, $value, false, true);
+                ConfigQuery::write("opengraph_" . $name, $value, false, true);
             }
 
             // Redirect to the configuration page if everything is OK

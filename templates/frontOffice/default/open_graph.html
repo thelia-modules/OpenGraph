@@ -1,10 +1,5 @@
-{*
-TODO : some of the code above can be done in php in the hook.
-*}
 
-{$view_value={$smarty.get.view}}
 {$object_id=''}
-
 {if $view_value == 'content'}
     {$object_id={content attr="id"}}
 {/if}
@@ -18,7 +13,11 @@ TODO : some of the code above can be done in php in the hook.
     {$object_id={product attr="id"}}
 {/if}
 
+{if $object_id !== ''}
+    {ifloop rel={$view_value}}
+
     {$og_type='article'}
+
     {$title=''}
     {$description=''}
     {$image_src=''}
@@ -26,15 +25,19 @@ TODO : some of the code above can be done in php in the hook.
     {$url=''}
     {$image_type=''}
 
-    {loop name="{$view_value}" type="{$view_value}" id=$object_id limit="1"}
+    {loop name={$view_value} type={$view_value} id=$object_id limit="1"}
         {$title = $TITLE}
 
-        {$description = $META_DESCRIPTION}
+        {if $META_DESCRIPTION}
+            {$description=$META_DESCRIPTION}
+        {elseif $CHAPO}
+            {$description=$CHAPO|truncate:150:""}
+        {/if}
 
         {$url={$URL nofilter}}
 
         {ifloop rel="image"}
-            {loop type="image" name="image" source="{$view_value}" source_id="{$ID}" width="400" height="300" resize_mode="borders" limit="1"}
+            {loop type="image" name="image" source={$view_value} source_id={$ID} width="400" height="300" resize_mode="borders" limit="1"}
                 {$image_src = $IMAGE_URL}
                 {$image_type = $OBJECT_TYPE}
             {/loop}
@@ -46,35 +49,42 @@ TODO : some of the code above can be done in php in the hook.
         {/if}
     {/loop}
 
-    {*Facebook, Pinterest and Google+ tags*}
+    {* Facebook, Pinterest and Google+ tags *}
     <meta property="og:type" content="{$og_type}" />
-{if {config key='opengraph_company_name'}}
-    <meta property="og:site_name" content="{config key='opengraph_company_name'}"/>
-{/if}
+    {$company_name={config key='opengraph_company_name'}}
+    {if not $company_name}{$company_name={config key="store_name"}}{/if}
+    {if $company_name}
+    <meta property="og:site_name" content="{$company_name}"/>
+    {/if}
+    <meta property="og:locale" content="{lang attr="locale"}" />
     <meta property="og:url" content="{$url}" />
     <meta property="og:title" content="{$title}" />
+
+    <meta property="og:description" content="{$description}" />
+
     {ifloop rel="image"}
     <meta property="og:image" content="{$image_src}" />
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="300" />
     {/ifloop}
-    <meta property="og:description" content="{$description}" />
+
     {if $price}
     {* Price tags *}
-    <meta property="og:price:amount" content="{$price}" />
+    <meta property="og:price:amount" content="{format_money number=$price}" />
     <meta property="og:price:currency" content="{currency attr="code"}" />
     {/if}
 
     {* Twitter tags *}
     <meta name="twitter:card" content="summary" />
-{if {config key='opengraph_twitter_company_name'}}
+    {if {config key='opengraph_twitter_company_name'}}
     <meta name="twitter:site" content="{config key='opengraph_twitter_company_name'}" />
-{/if}
-{if {config key='opengraph_twitter_creator_name'}}
+    {/if}
+    {if {config key='opengraph_twitter_creator_name'}}
     <meta name=”twitter:creator” content="{config key='opengraph_twitter_creator_name'}" />
-{/if}
+    {/if}
     <meta name="twitter:title" content="{$title}" />
     {ifloop rel="image"}
-    <meta name="twitter:image" content="{$image_src}" />
-    {/ifloop}
+    <meta name="twitter:image" content="{$image_src}" />{/ifloop}
     <meta name="twitter:description" content="{$description}" />
+    {/ifloop}
+{/if}

@@ -24,12 +24,12 @@ class OpenGraphHook extends BaseHook
 {
     public function onMainHeadBottom(HookRenderEvent $event)
     {
-        $object_type = $this->getView();
+        $acceptedTypes = ['category', 'product', 'folder', 'content'];
 
-        if ( $object_type == 'category' || $object_type == 'product' || $object_type == 'folder' || $object_type == 'content') {
+        $objectType = $this->getView();
 
-            $event
-                ->add($this->render('open_graph.html', [$object_type]));
+        if (in_array($objectType, $acceptedTypes)) {
+            $event->add($this->render('open_graph.html', ['view_value' => $objectType]));
         }
     }
 
