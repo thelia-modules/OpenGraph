@@ -1,4 +1,3 @@
-
 {$object_id=''}
 {if $view_value == 'content'}
     {$object_id={content attr="id"}}
@@ -23,7 +22,6 @@
     {$image_src=''}
     {$price=''}
     {$url=''}
-    {$image_type=''}
 
     {loop name={$view_value} type={$view_value} id=$object_id limit="1"}
         {$title = $TITLE}
@@ -39,7 +37,6 @@
         {ifloop rel="image"}
             {loop type="image" name="image" source={$view_value} source_id={$ID} width="400" height="300" resize_mode="borders" limit="1"}
                 {$image_src = $IMAGE_URL}
-                {$image_type = $OBJECT_TYPE}
             {/loop}
         {/ifloop}
 
@@ -56,7 +53,7 @@
     {if $company_name}
     <meta property="og:site_name" content="{$company_name}"/>
     {/if}
-    <meta property="og:locale" content="{lang attr="locale"}" />
+    <meta property="og:locale" content="{lang attr='locale'}" />
     <meta property="og:url" content="{$url}" />
     <meta property="og:title" content="{$title}" />
 
@@ -71,7 +68,7 @@
     {if $price}
     {* Price tags *}
     <meta property="og:price:amount" content="{format_money number=$price}" />
-    <meta property="og:price:currency" content="{currency attr="code"}" />
+    <meta property="og:price:currency" content="{currency attr='code'}" />
     {/if}
 
     {* Twitter tags *}
@@ -88,3 +85,4 @@
     <meta name="twitter:description" content="{$description}" />
     {/ifloop}
 {/if}
+

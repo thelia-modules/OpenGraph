@@ -26,7 +26,6 @@ use Thelia\Model\ConfigQuery;
  */
 class OpenGraphConfigurationForm extends BaseForm
 {
-
     protected function buildForm()
     {
         $form = $this->formBuilder;
@@ -70,7 +69,6 @@ class OpenGraphConfigurationForm extends BaseForm
                 ]
             ]
         ];
-
 
         foreach ($definitions as $field) {
             $value = ConfigQuery::read("opengraph_" . $field["id"], "");

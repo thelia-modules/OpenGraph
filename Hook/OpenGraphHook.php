@@ -33,7 +33,18 @@ class OpenGraphHook extends BaseHook
         }
     }
 
-    public function onModuleConf(HookRenderEvent $event)
+    public function openGraphSharingButtons(HookRenderEvent $event)
+    {
+        $acceptedTypes = ['category', 'product', 'folder', 'content'];
+
+        $objectType = $this->getView();
+
+        if (in_array($objectType, $acceptedTypes)) {
+            $event->add($this->render('open_graph_sharing_button.html', ['view_value' => $objectType]));
+        }
+    }
+
+    public function onModuleConfiguration(HookRenderEvent $event)
     {
         $event->add($this->render("module_configuration.html"));
     }

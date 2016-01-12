@@ -30,7 +30,6 @@ class OpenGraphController extends BaseAdminController
 {
     /**
      * Redirect to the configuration page
-     *
      */
     protected function redirectToConfigurationPage()
     {
@@ -65,6 +64,7 @@ class OpenGraphController extends BaseAdminController
 
             // Redirect to the configuration page if everything is OK
             return $this->redirectToConfigurationPage();
+
         } catch (FormValidationException $e) {
             // Form cannot be validated. Create the error message using
             // the BaseAdminController helper method.

@@ -6,8 +6,9 @@
 
     <hooks>
         <hook id="opengraph.hook" class="OpenGraph\Hook\OpenGraphHook" scope="request">
-            <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConf" />
+            <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfiguration" />
             <tag name="hook.event_listener" event="main.head-bottom" type="front" method="onMainHeadBottom" />
+            <tag name="hook.event_listener" event="main.content-top" type="front" method="openGraphSharingButtons" />
         </hook>
     </hooks>
 
