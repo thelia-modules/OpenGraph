@@ -11,7 +11,7 @@
     {$object_id={category attr="id"}}
 {/if}
 {if $view_value == 'product'}
-    git{$object_id={product attr="id"}}
+    {$object_id={product attr="id"}}
 {/if}
 
 {$image_src=''}
@@ -23,39 +23,22 @@
     {/loop}
 {/ifloop}
 
-<div class="general-block-decorator">
-    <div class="well well-sm">
-        <div class="row">
-            <div class="col-md-12 title title-without-tabs">
-                {intl l='Share this page on the social media' d='opengraph.bo.default'}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="http://www.facebook.com/sharer.php?u={$url|escape:'url'}" target="_blank">
-                    <button class="btn btn-subscribe  btn-primary" title="{intl d='opengraph.bo.default' l='Share on facebook'}" >
-                        facebook
-                    </button>
-                </a>
-
-                <a href="https://twitter.com/intent/tweet?source=webclient&url={$url|escape:'url'}" target="_blank">
-                    <button class="btn btn-subscribe  btn-primary" title="{intl d='opengraph.bo.default' l='Share on twitter'}" >
-                        twitter
-                    </button>
-                </a>
-                <a href="https://plus.google.com/share?url={$url|escape:'url'}" target="_blank">
-                    <button class="btn btn-subscribe  btn-primary" title="{intl d='opengraph.bo.default' l='Share on google+'}" >
-                        google+
-                    </button>
-                </a>
-
-                {$pinterest_link="https://www.pinterest.com/pin/create/button/?url={$url|escape:'url'}&media="|cat:{$image_src}}
-                <a href="{$pinterest_link}" target="_blank">
-                    <button class="btn btn-subscribe  btn-primary" title="{intl d='opengraph.bo.default' l='Share on pinterest'}" >
-                        pinterest
-                    </button>
-                </a>
-            </div>
-        </div>
+<div class="thelia-module-opengraph">
+    <div class="sharing-btn">
+        <a class="fa fa-facebook-official" href="http://www.facebook.com/sharer.php?u={$url|escape:'url'}" target="_blank">
+        </a>
+    </div>
+    <div class="sharing-btn">
+        <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?source=webclient&url={$url|escape:'url'}" target="_blank">
+        </a>
+    </div>
+    <div class="sharing-btn">
+        <a class="fa fa-google-plus" href="https://plus.google.com/share?url={$url|escape:'url'}" target="_blank">
+        </a>
+    </div>
+    <div class="sharing-btn">
+        {$pinterest_link="https://www.pinterest.com/pin/create/button/?url={$url|escape:'url'}&media="|cat:{$image_src}}
+        <a class="fa fa-pinterest" href="{$pinterest_link}" target="_blank">
+        </a>
     </div>
 </div>
