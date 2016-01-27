@@ -12,6 +12,7 @@
 
 namespace OpenGraph\Controller;
 
+use OpenGraph\Model\Config\OpenGraphConfigValue;
 use OpenGraph\OpenGraph;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Thelia\Controller\Admin\BaseAdminController;
@@ -57,6 +58,13 @@ class OpenGraphController extends BaseAdminController
 
             // Get the form field values
             $data = $validateForm->getData();
+
+            OpenGraph::setConfigValue(
+                OpenGraphConfigValue::ENABLE_SHARING_BUTTONS,
+                is_bool($data["enable_sharing_buttons"])
+                ? (int) ($data["enable_sharing_buttons"])
+                : $data["enable_sharing_buttons"]
+            );
 
             foreach ($data as $name => $value) {
                 ConfigQuery::write("opengraph_" . $name, $value, false, true);

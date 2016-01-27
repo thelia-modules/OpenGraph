@@ -12,6 +12,8 @@
 
 namespace OpenGraph\Hook;
 
+use OpenGraph\Model\Config\Base\OpenGraphConfigValue;
+use OpenGraph\OpenGraph;
 use Thelia\Core\Event\Hook\HookRenderEvent;
 use Thelia\Core\Hook\BaseHook;
 
@@ -35,12 +37,14 @@ class OpenGraphHook extends BaseHook
 
     public function openGraphSharingButtons(HookRenderEvent $event)
     {
-        $acceptedTypes = ['category', 'product', 'folder', 'content'];
+        if (OpenGraph::getConfigValue(OpenGraphConfigValue::ENABLE_SHARING_BUTTONS, 0) == 1) {
+            $acceptedTypes = ['category', 'product', 'folder', 'content'];
 
-        $objectType = $this->getView();
+            $objectType = $this->getView();
 
-        if (in_array($objectType, $acceptedTypes)) {
-            $event->add($this->render('open_graph_sharing_button.html', ['view_value' => $objectType]));
+            if (in_array($objectType, $acceptedTypes)) {
+                $event->add($this->render('open_graph_sharing_button.html', ['view_value' => $objectType]));
+            }
         }
     }
 

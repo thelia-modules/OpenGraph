@@ -12,6 +12,8 @@
 
 namespace OpenGraph;
 
+use OpenGraph\Model\Config\OpenGraphConfigValue;
+use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Module\BaseModule;
 
 /**
@@ -22,4 +24,9 @@ use Thelia\Module\BaseModule;
 class OpenGraph extends BaseModule
 {
     const DOMAIN_NAME = 'opengraph';
+
+    public function postActivation(ConnectionInterface $con = null)
+    {
+        self::setConfigValue(OpenGraphConfigValue::ENABLE_SHARING_BUTTONS, 0);
+    }
 }

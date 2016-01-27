@@ -12,6 +12,7 @@
 
 namespace OpenGraph\Form;
 
+use OpenGraph\Model\Config\Base\OpenGraphConfigValue;
 use OpenGraph\OpenGraph;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -72,7 +73,8 @@ class OpenGraphConfigurationForm extends BaseForm
 
         foreach ($definitions as $field) {
             $value = ConfigQuery::read("opengraph_" . $field["id"], "");
-            $form->add(
+            $form
+            ->add(
                 $field["id"],
                 "text",
                 array(
@@ -82,6 +84,25 @@ class OpenGraphConfigurationForm extends BaseForm
                     "label_attr" => array(
                         "for" => $field["id"]
                     ),
+                )
+            )
+            ->add(
+                "enable_sharing_buttons",
+                "checkbox",
+                array(
+                    "label" => "Enable the sharing buttons",
+                    "label_attr" => [
+                        "for" => "enable_sharing_buttons",
+                        "help" => Translator::getInstance()->trans(
+                            'Check if you want to activate the sharing buttons in the front office',
+                            [],
+                            OpenGraph::DOMAIN_NAME
+                        )
+                    ],
+                    "required" => false,
+                    "constraints" => array(
+                    ),
+                    "value" => OpenGraph::getConfigValue(OpenGraphConfigValue::ENABLE_SHARING_BUTTONS, 1),
                 )
             );
         }
@@ -106,4 +127,4 @@ class OpenGraphConfigurationForm extends BaseForm
             $context->addViolation($this->trans("enter a valid twitter alias"));
         }
     }
-} 
+}
