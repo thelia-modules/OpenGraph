@@ -7,8 +7,10 @@
     <hooks>
         <hook id="opengraph.hook" class="OpenGraph\Hook\OpenGraphHook" scope="request">
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfiguration" />
+
             <tag name="hook.event_listener" event="main.head-bottom" type="front" method="onMainHeadBottom" />
             <tag name="hook.event_listener" event="main.body-bottom" type="front" method="openGraphSharingButtons" />
+            <tag name="hook.event_listener" event="main.stylesheet" type="front" method="onMainStylesheet" />
         </hook>
     </hooks>
 

@@ -44,6 +44,11 @@ class OpenGraphHook extends BaseHook
         }
     }
 
+    public function onMainStylesheet(HookRenderEvent $event)
+    {
+        $event->add($this->addCSS("assets/css/styles.css"));
+    }
+
     public function onModuleConfiguration(HookRenderEvent $event)
     {
         $event->add($this->render("module_configuration.html"));

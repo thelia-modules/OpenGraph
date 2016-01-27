@@ -23,22 +23,23 @@
     {/loop}
 {/ifloop}
 
-<div class="thelia-module-opengraph">
-    <div class="sharing-btn">
-        <a class="fa fa-facebook-official" href="http://www.facebook.com/sharer.php?u={$url|escape:'url'}" target="_blank">
-        </a>
-    </div>
-    <div class="sharing-btn">
-        <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?source=webclient&url={$url|escape:'url'}" target="_blank">
-        </a>
-    </div>
-    <div class="sharing-btn">
-        <a class="fa fa-google-plus" href="https://plus.google.com/share?url={$url|escape:'url'}" target="_blank">
-        </a>
-    </div>
-    <div class="sharing-btn">
-        {$pinterest_link="https://www.pinterest.com/pin/create/button/?url={$url|escape:'url'}&media="|cat:{$image_src}}
-        <a class="fa fa-pinterest" href="{$pinterest_link}" target="_blank">
-        </a>
+<div class="og-share-container">
+    <div class="og-share-box">
+        <div class="og-share-btn">
+            <a class="og-share-link fa fa-lg fa-facebook-official" href="http://www.facebook.com/sharer.php?u={$url|escape:'url'}" target="_blank">
+            </a>
+        </div>
+        <div class="og-share-btn">
+            <a class="og-share-link fa fa-lg fa-twitter" href="https://twitter.com/intent/tweet?source=webclient&amp;url={$url|escape:'url'}" target="_blank">
+            </a>
+        </div>
+        <div class="og-share-btn">
+            <a class="og-share-link fa fa-lg fa-google-plus" href="https://plus.google.com/share?url={$url|escape:'url'}" target="_blank">
+            </a>
+        </div>
+        <div class="og-share-btn">
+            <a class="og-share-link fa fa-lg fa-pinterest" href="https://www.pinterest.com/pin/create/button/?url={$url|escape:'url'}&amp;media={$image_src|escape:'url'}" target="_blank">
+            </a>
+        </div>
     </div>
 </div>
