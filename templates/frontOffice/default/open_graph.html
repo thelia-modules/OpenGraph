@@ -59,11 +59,11 @@
 
     <meta property="og:description" content="{$description}" />
 
-    {ifloop rel="image"}
+    {if $image_src != ''}
     <meta property="og:image" content="{$image_src}" />
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="300" />
-    {/ifloop}
+    {/if}
 
     {if $price}
     {* Price tags *}
@@ -80,9 +80,9 @@
     <meta name=”twitter:creator” content="{config key='opengraph_twitter_creator_name'}" />
     {/if}
     <meta name="twitter:title" content="{$title}" />
-    {ifloop rel="image"}
+    {if $image_src != ''}
     <meta name="twitter:image" content="{$image_src}" />
-    {/ifloop}
+    {/if}
     <meta name="twitter:description" content="{$description}" />
     {/ifloop}
 {/if}
