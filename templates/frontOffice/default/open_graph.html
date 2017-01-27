@@ -55,9 +55,9 @@
     {/if}
     <meta property="og:locale" content="{lang attr='locale'}" />
     <meta property="og:url" content="{$url}" />
-    <meta property="og:title" content="{$title}" />
+    <meta property="og:title" content="{$title|strip_tags}" />
 
-    <meta property="og:description" content="{$description}" />
+    <meta property="og:description" content="{$description|strip_tags}" />
 
     {if $image_src != ''}
     <meta property="og:image" content="{$image_src}" />
@@ -83,7 +83,7 @@
     {if $image_src != ''}
     <meta name="twitter:image" content="{$image_src}" />
     {/if}
-    <meta name="twitter:description" content="{$description}" />
+    <meta name="twitter:description" content="{$description|strip_tags}" />
     {/ifloop}
 {/if}
 
