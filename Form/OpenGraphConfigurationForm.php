@@ -123,7 +123,7 @@ class OpenGraphConfigurationForm extends BaseForm
 
     public function verifyValue($value, ExecutionContextInterface $context)
     {
-        if (!preg_match("#^@[a-zA-Z]*$#", $value)) {
+        if (!preg_match("/^@[a-zA-Z0-9_]+$/", $value)) {
             $context->addViolation($this->trans("enter a valid twitter alias"));
         }
     }
