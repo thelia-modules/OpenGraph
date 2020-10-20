@@ -14,7 +14,7 @@ This module is for Thelia 2.2.1 or greater and 2.1.7 or greater.
 Add it in your main Thelia composer.json file
 
 ```
-composer require thelia/open-graph-module:~1.0
+composer require thelia/open-graph-module ~1.0.0
 ```
 
 ## Description
